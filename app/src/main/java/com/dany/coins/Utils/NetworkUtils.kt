@@ -10,7 +10,7 @@ import java.net.URL
 import java.util.Scanner
 
 object NetworkUtils {
-
+    //Cambiar a API coins
     private const val COIN_API_BASE_URL = "https://pokeapi.co/api/v2/"
     private const val COIN_INFO = "pokemon"
 
