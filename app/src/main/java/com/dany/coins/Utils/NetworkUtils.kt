@@ -12,7 +12,7 @@ import java.util.Scanner
 object NetworkUtils {
 
     private const val COIN_API_BASE_URL = "https://pokeapi.co/api/v2/"
-    private const val COIN_INFO = ""
+    private const val COIN_INFO = "pokemon"
 
     private val TAG = NetworkUtils::class.java.simpleName
 
