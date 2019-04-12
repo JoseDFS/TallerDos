@@ -116,30 +116,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         }
 
-        override fun onPostExecute(coinInfo: String?) {
-            if (coinInfo != null || coinInfo != "") {
-                Log.d("Info", coinInfo + "")
-
-
-                val jObj = JSONObject(coinInfo)
-                Log.d("OBJ", jObj.getJSONArray("results")[0].toString())
-
-                val jObjresult = jObj.getJSONArray("results")
-
-                coin = MutableList(20) { i ->
-                    Log.d("prueba", i.toString())
-
-
-                    val jObjresultobj = JSONObject(jObjresult[i].toString())
-
-                    Coin_dummy(jObjresultobj.getString("url"), jObjresultobj.getString("name"))
-
-
+        override fun onPostExecute(coinInfo: String) {
+            val coin_list = if(coinInfo.isEmpty()){
+                val root = JSONArray(coinInfo)
+                MutableList(root.length()){
+                    i ->
+                    val result = JSONObject(root[i].toString())
+                    Coin(result.getString("name"),
+                        result.getString("country"),
+                        result.getInt("value"),
+                        result.getInt("value_us"),
+                        result.getInt("year"),
+                        result.getString("review"),
+                        result.getBoolean("isAvailable"),
+                        result.getString("img"))
                 }
-                initRecycler()
-            } else {
-                name_coin.text = coinInfo
+            }else{
+                MutableList(20) { i ->
+                    Coin("","",0,0,0,"",false,"")
+                }
             }
+
+            initRecycler()
         }
     }
 
