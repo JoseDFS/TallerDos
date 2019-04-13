@@ -1,5 +1,6 @@
 package com.dany.coins
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -7,13 +8,14 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.dany.coins.Models.Coin
-import com.dany.coins.Utils.Coin_dummy
+import com.dany.coins.Utils.AppConstants
 import com.dany.coins.Utils.NetworkUtils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var coin : MutableList<Coin_dummy>
+
     private var gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,10 +82,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
          */
     }
 
-    fun initRecycler() {
+    fun initRecycler(coin:MutableList<Coin>) {
+        if (twoPane){viewManager = LinearLayoutManager(this)}
+        else{viewManager = GridLayoutManager(this,2)}
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = CoinAdapter(coin)
+        viewAdapter = CoinAdapter(coin,{coinItem: Coin -> coinItemClicked(coinItem)})
 
         coin_list.apply {
             setHasFixedSize(true)
@@ -91,6 +94,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             adapter = viewAdapter
         }
 
+    }
+
+    private fun coinItemClicked(item: Coin){
+        val extras = Bundle()
+        extras.putString(AppConstants.TEXT_KEY_NAME, item.name)
+        extras.putString(AppConstants.TEXT_KEY_IMG, item.img)
+        extras.putString(AppConstants.TEXT_KEY_IS_AVAILABLE,item.isAvailable.toString())
+        extras.putString(AppConstants.TEXT_KEY_COUNTRY, item.country)
+        extras.putString(AppConstants.TEXT_KEY_REVIEW,item.review)
+        extras.putString(AppConstants.TEXT_KEY_YEAR,item.year.toString())
+        extras.putString(AppConstants.TEXT_KEY_VALUE_US,item.value_us.toString())
+        extras.putString(AppConstants.TEXT_KEY_VALUE,item.value.toString())
+        startActivity(Intent(this, CoinViewer::class.java).putExtras(extras))
     }
 
     private inner class FetchCoinTask : AsyncTask<Void, Void, String>() {
@@ -116,30 +132,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         }
 
-        override fun onPostExecute(coinInfo: String?) {
-            if (coinInfo != null || coinInfo != "") {
-                Log.d("Info", coinInfo + "")
-
-
-                val jObj = JSONObject(coinInfo)
-                Log.d("OBJ", jObj.getJSONArray("results")[0].toString())
-
-                val jObjresult = jObj.getJSONArray("results")
-
-                coin = MutableList(20) { i ->
-                    Log.d("prueba", i.toString())
-
-
-                    val jObjresultobj = JSONObject(jObjresult[i].toString())
-
-                    Coin_dummy(jObjresultobj.getString("url"), jObjresultobj.getString("name"))
-
-
+        override fun onPostExecute(coinInfo: String) {
+            Log.d("CoinInfo",coinInfo)
+            val coin_list = if(!coinInfo.isEmpty()){
+                val root = JSONArray(coinInfo)
+                MutableList(root.length()){
+                    i ->
+                    val result = JSONObject(root[i].toString())
+                    Coin(result.getString("name"),
+                        result.getString("country"),
+                        result.getDouble("value"),
+                        result.getDouble("value_us"),
+                        result.getInt("year"),
+                        result.getString("review"),
+                        result.getBoolean("isAvailable"),
+                        result.getString("img"))
                 }
-                initRecycler()
-            } else {
-                name_coin.text = coinInfo
+            }else{
+                MutableList(0) { i ->
+                    Coin("","",0,0,0,"",false,"")
+                }
             }
+
+            initRecycler(coin_list)
         }
     }
 

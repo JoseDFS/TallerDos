@@ -11,8 +11,8 @@ import java.util.Scanner
 
 object NetworkUtils {
     //Cambiar a API coins
-    private const val COIN_API_BASE_URL = "https://pokeapi.co/api/v2/"
-    private const val COIN_INFO = "pokemon"
+    private const val COIN_API_BASE_URL = "https://thawing-stream-49083.herokuapp.com/"
+    private const val COIN_INFO = "coins"
 
     private val TAG = NetworkUtils::class.java.simpleName
 
