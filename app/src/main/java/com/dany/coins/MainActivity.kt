@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -80,8 +81,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun initRecycler(coin:MutableList<Coin>) {
+        if (twoPane){viewManager = LinearLayoutManager(this)}
+        else{viewManager = GridLayoutManager(this,2)}
 
-        viewManager = LinearLayoutManager(this)
         viewAdapter = CoinAdapter(coin)
 
         coin_list.apply {
@@ -116,7 +118,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         override fun onPostExecute(coinInfo: String) {
-            val coin_list = if(coinInfo.isEmpty()){
+            Log.d("CoinInfo",coinInfo)
+            val coin_list = if(!coinInfo.isEmpty()){
                 val root = JSONArray(coinInfo)
                 MutableList(root.length()){
                     i ->
@@ -131,7 +134,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         result.getString("img"))
                 }
             }else{
-                MutableList(20) { i ->
+                MutableList(8) { i ->
                     Coin("","",0,0,0,"",false,"")
                 }
             }
