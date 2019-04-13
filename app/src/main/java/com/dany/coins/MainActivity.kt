@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 return null
             }*/
 
-            // val idPoke = pokemonNumbers[0]
+            // val idPoke = pokemonNumbers[0
 
 
             val coinAPI = NetworkUtils.buildUrl()!!
