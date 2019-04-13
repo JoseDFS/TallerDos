@@ -30,9 +30,10 @@ class CoinViewer : AppCompatActivity() {
             tv_name.text = mIntent.getStringExtra(AppConstants.TEXT_KEY_NAME)
             tv_country.text =mIntent.getStringExtra(AppConstants.TEXT_KEY_COUNTRY)
             tv_isavailable.text =mIntent.getStringExtra(AppConstants.TEXT_KEY_IS_AVAILABLE)
-            tv_value.text=mIntent.getStringExtra(AppConstants.TEXT_KEY_VALUE).toString()
-            tv_valueus.text=mIntent.getStringExtra(AppConstants.TEXT_KEY_VALUE_US).toString()
-            tv_year.text=mIntent.getStringExtra(AppConstants.TEXT_KEY_YEAR).toString()
+            tv_value.text=mIntent.getStringExtra(AppConstants.TEXT_KEY_VALUE)
+            tv_valueus.text=mIntent.getStringExtra(AppConstants.TEXT_KEY_VALUE_US)
+            tv_year.text=mIntent.getStringExtra(AppConstants.TEXT_KEY_YEAR)
+            tv_review.text=mIntent.getStringExtra(AppConstants.TEXT_KEY_REVIEW)
 
 
 
