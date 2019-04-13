@@ -13,7 +13,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.dany.coins.Models.Coin
-import com.dany.coins.Utils.Coin_dummy
 import com.dany.coins.Utils.NetworkUtils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var coin : MutableList<Coin_dummy>
+    private lateinit var coin : MutableList<Coin>
     private var gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
