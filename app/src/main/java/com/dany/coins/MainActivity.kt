@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.dany.coins.Models.Coin
+import com.dany.coins.Utils.AppConstants
 import com.dany.coins.Utils.NetworkUtils
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
@@ -96,7 +97,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun coinItemClicked(item: Coin){
-        startActivity(Intent(this, CoinViewer::class.java).putExtra("NAME",item.name))
+        val extras = Bundle()
+        extras.putString(AppConstants.TEXT_KEY_NAME, item.name)
+        extras.putString(AppConstants.TEXT_KEY_IMG, item.img)
+        extras.putString(AppConstants.TEXT_KEY_IS_AVAILABLE,item.isAvailable.toString())
+        extras.putString(AppConstants.TEXT_KEY_COUNTRY, item.country)
+        extras.putString(AppConstants.TEXT_KEY_REVIEW,item.review)
+        extras.putString(AppConstants.TEXT_KEY_YEAR,item.year.toString())
+        extras.putString(AppConstants.TEXT_KEY_VALUE_US,item.value_us.toString())
+        extras.putString(AppConstants.TEXT_KEY_VALUE,item.value.toString())
+        startActivity(Intent(this, CoinViewer::class.java).putExtras(extras))
     }
 
     private inner class FetchCoinTask : AsyncTask<Void, Void, String>() {
