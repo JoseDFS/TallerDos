@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var coin : MutableList<Coin>
+
     private var gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
          */
     }
 
-    fun initRecycler() {
+    fun initRecycler(coin:MutableList<Coin>) {
 
         viewManager = LinearLayoutManager(this)
         viewAdapter = CoinAdapter(coin)
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
 
-            initRecycler()
+            initRecycler(coin_list)
         }
     }
 
