@@ -9,7 +9,7 @@
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="3" android:orientation="horizontal" android:gravity="center">
 
-        <ImageView android:layout_width="200dp" android:layout_height="200dp" android:id="@+id/iv_pokemon2" android:layout_margin="8dp"
+        <ImageView android:layout_width="200dp" android:layout_height="200dp" android:id="@+id/iv_coin2" android:layout_margin="8dp"
             />
 
 
@@ -18,40 +18,58 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:text="Nombre: " android:textColor="@android:color/holo_green_dark" />
+            android:text="Name: " android:textColor="@android:color/holo_green_dark" />
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
-            android:id="@+id/tv_nombre" android:textColor="@android:color/holo_green_dark" />
+            android:id="@+id/tv_name" android:textColor="@android:color/holo_green_dark" />
 
     </LinearLayout>
 
     <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="ID: "  android:textSize="25dp" android:textColor="@android:color/holo_green_dark" android:fontFamily="casual"/>
+            android:text="Countrry "  android:textSize="25dp" android:textColor="@android:color/holo_green_dark" android:fontFamily="casual"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
-            android:id="@+id/tv_id"  android:textColor="@android:color/holo_green_dark"/>
+            android:id="@+id/tv_country"  android:textColor="@android:color/holo_green_dark"/>
 
     </LinearLayout>
 
     <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
-            android:text="Experiencia: " android:textColor="@android:color/holo_green_dark" />
+            android:text="Value: " android:textColor="@android:color/holo_green_dark" />
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
-            android:id="@+id/tv_experiencia" android:textColor="@android:color/holo_green_dark" />
+            android:id="@+id/tv_value" android:textColor="@android:color/holo_green_dark" />
 
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
-            android:text=" Altura: "   android:textColor="@android:color/holo_green_dark" />
+            android:text=" Value US: "   android:textColor="@android:color/holo_green_dark" />
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
-            android:id="@+id/tv_altura" android:textColor="@android:color/holo_green_dark" />
+            android:id="@+id/tv_valueus" android:textColor="@android:color/holo_green_dark" />
 
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
-            android:text=" Peso: " android:textColor="@android:color/holo_green_dark" />
+            android:text=" Year: " android:textColor="@android:color/holo_green_dark" />
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
-            android:id="@+id/tv_peso" android:textColor="@android:color/holo_green_dark" />
+            android:id="@+id/tv_year" android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:text=" Review: " android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_review" android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:text=" Available: " android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_isavailable" android:textColor="@android:color/holo_green_dark" />
 
     </LinearLayout>
 
