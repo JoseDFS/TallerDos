@@ -141,8 +141,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val result = JSONObject(root[i].toString())
                     Coin(result.getString("name"),
                         result.getString("country"),
-                        result.getInt("value"),
-                        result.getInt("value_us"),
+                        result.getDouble("value"),
+                        result.getDouble("value_us"),
                         result.getInt("year"),
                         result.getString("review"),
                         result.getBoolean("isAvailable"),
