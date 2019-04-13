@@ -1,5 +1,6 @@
 package com.dany.coins
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (twoPane){viewManager = LinearLayoutManager(this)}
         else{viewManager = GridLayoutManager(this,2)}
 
-        viewAdapter = CoinAdapter(coin)
+        viewAdapter = CoinAdapter(coin,{coinItem: Coin -> coinItemClicked(coinItem)})
 
         coin_list.apply {
             setHasFixedSize(true)
@@ -92,6 +93,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             adapter = viewAdapter
         }
 
+    }
+
+    private fun coinItemClicked(item: Coin){
+        startActivity(Intent(this, CoinViewer::class.java).putExtra("NAME",item.name))
     }
 
     private inner class FetchCoinTask : AsyncTask<Void, Void, String>() {
@@ -134,7 +139,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         result.getString("img"))
                 }
             }else{
-                MutableList(8) { i ->
+                MutableList(0) { i ->
                     Coin("","",0,0,0,"",false,"")
                 }
             }
