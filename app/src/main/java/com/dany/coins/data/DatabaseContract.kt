@@ -6,16 +6,15 @@ object DatabaseContract {
 
     object CoinEntry: BaseColumns{
 
-
         const val TABLE_NAME = "coin"
-        const val COLUMN_NAME = ""
-        const val COLUMN_COUNTRY =""
-        const val COLUMN_VALUE = ""
-        const val COLUMN_VALUEUS = ""
-        const val COLUMN_YEAR = ""
-        const val COLUMN_REVIEW = ""
-        const val COLUMN_ISAVAILABLE = ""
-        const val COLUMN_IMG = ""
+        const val COLUMN_NAME = "name"
+        const val COLUMN_COUNTRY ="contry"
+        const val COLUMN_VALUE = "value"
+        const val COLUMN_VALUE_US = "value_us"
+        const val COLUMN_YEAR = "year"
+        const val COLUMN_REVIEW = "review"
+        const val COLUMN_ISAVAILABLE = "isAvailable"
+        const val COLUMN_IMG = "img"
 
     }
 }

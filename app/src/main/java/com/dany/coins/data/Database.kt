@@ -10,20 +10,18 @@ private const val SQL_CREATE_ENTRIES =
                 "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                 "${DatabaseContract.CoinEntry.COLUMN_NAME} TEXT," +
                 "${DatabaseContract.CoinEntry.COLUMN_COUNTRY} TEXT," +
-                "${DatabaseContract.CoinEntry.COLUMN_VALUE} TEXT," +
-                "${DatabaseContract.CoinEntry.COLUMN_VALUEUS} TEXT," +
-                "${DatabaseContract.CoinEntry.COLUMN_YEAR} TEXT," +
+                "${DatabaseContract.CoinEntry.COLUMN_VALUE} DOUBLE," +
+                "${DatabaseContract.CoinEntry.COLUMN_VALUE_US} DOUBLE," +
+                "${DatabaseContract.CoinEntry.COLUMN_YEAR} INTEGER," +
                 "${DatabaseContract.CoinEntry.COLUMN_REVIEW} TEXT," +
-                "${DatabaseContract.CoinEntry.COLUMN_ISAVAILABLE} TEXT," +
+                "${DatabaseContract.CoinEntry.COLUMN_ISAVAILABLE} BOOL," +
                 "${DatabaseContract.CoinEntry.COLUMN_IMG} TEXT)"
 
-private const val SQL_DELETE_ENTRIES =
-        "DROP TABLE IF EXISTS ${DatabaseContract.CoinEntry.TABLE_NAME}"
+private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS ${DatabaseContract.CoinEntry.TABLE_NAME}"
 
 
 
-class Database (context : Context) : SQL
-iteOpenHelper(context, DATABASE_NAME,null, DATABASE_VERSION){
+class Database (context : Context) : SQLiteOpenHelper(context, DATABASE_NAME,null, DATABASE_VERSION){
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_ENTRIES)
     }
@@ -33,11 +31,9 @@ iteOpenHelper(context, DATABASE_NAME,null, DATABASE_VERSION){
         onCreate(db)
     }
 
-
-
     companion object{
         const val DATABASE_NAME = "miprimerabase.db"
-        const val DATABASE_VERSION = "1"
+        const val DATABASE_VERSION = 1
     }
 
 }
