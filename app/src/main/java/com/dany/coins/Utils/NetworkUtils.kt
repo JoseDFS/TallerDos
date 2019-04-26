@@ -16,10 +16,10 @@ object NetworkUtils {
 
     private val TAG = NetworkUtils::class.java.simpleName
 
-    fun buildUrl(): URL? {
+    fun buildUrl(pleca:String): URL? {
         val builtUri = Uri.parse(COIN_API_BASE_URL)
                 .buildUpon()
-                .appendPath(COIN_INFO)
+                .appendPath(pleca)
                 .build()
 
         var url: URL? = null
