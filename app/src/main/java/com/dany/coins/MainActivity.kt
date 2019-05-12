@@ -20,6 +20,7 @@ import android.widget.Toast
 import com.dany.coins.Models.Coin
 import com.dany.coins.Utils.AppConstants
 import com.dany.coins.Utils.NetworkUtils
+import com.dany.coins.data.CoinCRUD
 import com.dany.coins.data.Database
 import com.dany.coins.data.DatabaseContract
 import com.google.gson.Gson
@@ -31,9 +32,10 @@ import org.json.JSONObject
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
-    var dbHelper = Database(this)
 
     var twoPane = false
+
+    var crud: CoinCRUD? = null
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -43,8 +45,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onDestroy() {
-        this.deleteDatabase("miprimerabase.db")
-        dbHelper.close()
+        //this.deleteDatabase("miprimerabase.db")
         super.onDestroy()
     }
 
@@ -112,16 +113,8 @@ class MainActivity : AppCompatActivity() {
     private inner class FetchCoinTask : AsyncTask<Void, Void, String>() {
 
         override fun doInBackground(vararg params: Void): String? {
-/*
-            if (pokemonNumbers.isEmpty()) {
-                return null
-            }*/
-
-            // val idPoke = pokemonNumbers[0
-
 
             val coinAPI = NetworkUtils.buildUrl("coins")!!
-
 
             return try {
                 NetworkUtils.getResponseFromHttpUrl(coinAPI)
@@ -134,11 +127,13 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(coinInfo: String) {
             Log.d("CoinInfo", coinInfo)
-            val db = dbHelper.readableDatabase
+            //val db = dbHelper.readableDatabase
 
 
             val root = JSONArray(coinInfo)
 
+            Log.d("Hola", root.toString())
+/*
             for (i in 0..(root.length() - 1)) {
 
                 val result = JSONObject(root[i].toString())
@@ -211,10 +206,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                initRecycler(list_coin)
-            }
+                initRecycler(list_coin)*/
         }
-
-
     }
 }
