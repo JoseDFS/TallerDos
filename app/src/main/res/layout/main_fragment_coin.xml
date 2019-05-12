@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="3" android:orientation="horizontal" android:gravity="center"
+    android:background="#fff">
+
+        <ImageView android:layout_width="175dp" android:layout_height="175dp" android:id="@+id/iv_coin2" android:layout_margin="8dp"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="Name: " android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_name" android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Country "  android:textSize="25dp" android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_country"  android:textColor="@android:color/holo_green_dark"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:text="Value: " android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_value" android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:text=" Value US: "   android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_valueus" android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:text=" Year: " android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_year" android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:text=" Review: " android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_review" android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"  android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:text=" Available: " android:textColor="@android:color/holo_green_dark" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp"
+            android:id="@+id/tv_isavailable" android:textColor="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>
