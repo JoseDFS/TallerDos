@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     var twoPane = false
 
-    var crud: CoinCRUD? = null
+    var crud: CoinCRUD? = CoinCRUD(this)
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -109,8 +109,10 @@ class MainActivity : AppCompatActivity() {
             return try {
                 if (crud?.getCoins().isNullOrEmpty()) {
                     NetworkUtils.getResponseFromHttpUrl(coinAPI)
+
                 } else {
                     crud?.getCoins().toString()
+
                 }
 
             } catch (e: IOException) {
@@ -122,29 +124,33 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(coinInfo: String) {
             Log.d("CoinInfo", coinInfo)
-
-            val root = JSONArray(coinInfo)
-
-            Log.d("Hola", root.toString())
-
             if (crud?.getCoins()?.isNotEmpty()!!) {
+                Log.d("IF", coinInfo)
                 initRecycler(crud?.getCoins()!!)
+
             } else {
+                val root = JSONArray(coinInfo)
+                Log.d("Hola", root.toString())
                 for (i in 0..(root.length() - 1)) {
                     val res = JSONObject(root[i].toString())
 
-                    crud!!.newCoin(Coin(res.getString("name"),
-                        res.getString("country"),
-                        res.getDouble("value"),
-                        res.getDouble("value_us"),
-                        res.getInt("year"),
-                        res.getString("review"),
-                        res.getBoolean("isAvailable"),
-                        res.getString("img")   ))
+                    crud?.newCoin(
+                        Coin(
+                            res.getString("name"),
+                            res.getString("country"),
+                            res.getDouble("value"),
+                            res.getDouble("value_us"),
+                            res.getInt("year"),
+                            res.getString("review"),
+                            res.getBoolean("isAvailable"),
+                            res.getString("img")
+                        )
+                    )
 
                 }
                 initRecycler(crud?.getCoins()!!)
             }
+
         }
     }
 }
