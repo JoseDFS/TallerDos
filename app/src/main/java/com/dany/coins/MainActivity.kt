@@ -1,30 +1,20 @@
 package com.dany.coins
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.provider.BaseColumns
 import android.support.design.widget.Snackbar
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
 import com.dany.coins.Models.Coin
 import com.dany.coins.Utils.AppConstants
 import com.dany.coins.Utils.NetworkUtils
 import com.dany.coins.data.CoinCRUD
-import com.dany.coins.data.Database
-import com.dany.coins.data.DatabaseContract
 import com.dany.coins.fragments.MainContentFragment
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -40,15 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-
-    private var gson = Gson()
     private lateinit var mainContentFragment: MainContentFragment
-
-
-    override fun onDestroy() {
-        //this.deleteDatabase("miprimerabase.db")
-        super.onDestroy()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,8 +122,6 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(coinInfo: String) {
             Log.d("CoinInfo", coinInfo)
-            //val db = dbHelper.readableDatabase
-
 
             val root = JSONArray(coinInfo)
 
