@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.dany.coins.Models.Coin
+import com.dany.coins.R
+import kotlinx.android.synthetic.main.coin_model.view.*
+import kotlinx.android.synthetic.main.main_fragment_coin.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,20 +26,20 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-/*class MainContentFragment : Fragment() {
-    var pokemon = Pokemon()
+class MainContentFragment : Fragment() {
+    var coin = Coin()
 
     companion object {
-        fun newInstance(pokemon: Pokemon): MainContentFragment{
+        fun newInstance(coin: Coin): MainContentFragment{
             val newFragment = MainContentFragment()
-            newFragment.pokemon = pokemon
+            newFragment.coin = coin
             return newFragment
         }
     }
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.fragment_main_content, container, false)
+        val view = inflater.inflate(R.layout.main_fragment_coin, container, false)
 
         bindData(view)
 
@@ -43,16 +47,21 @@ private const val ARG_PARAM2 = "param2"
     }
 
     fun bindData(view: View){
-        var id =pokemon.id
-        view.id_main_content_fragment.text = pokemon.id
-        view.pokemon_name_main_content_fragment.text = pokemon.name
-        view.height_main_content_fragment.text = pokemon.height
-        view.weight_main_content_fragment.text = pokemon.weight
+
+        view.tv_country.text=coin.country
+        view.tv_isavailable.text=coin.isAvailable.toString()
+        view.tv_name.text=coin.name
+        view.tv_review.text=coin.review
+        view.tv_value.text=coin.value.toString()
+        view.tv_valueus.text=coin.value_us.toString()
+        view.tv_year.text=coin.year.toString()
+
+
+
         //view.types_main_content_fragment.text = pokemon.types
         Glide.with(view)
-            .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png")
+            .load(coin.img)
             .placeholder(R.drawable.ic_launcher_background)
-            .into(view.image_main_content_fragment)
+            .into(view.iv_coin2)
     }
 }
-*/

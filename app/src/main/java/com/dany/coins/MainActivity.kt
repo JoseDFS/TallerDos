@@ -23,6 +23,7 @@ import com.dany.coins.Utils.NetworkUtils
 import com.dany.coins.data.CoinCRUD
 import com.dany.coins.data.Database
 import com.dany.coins.data.DatabaseContract
+import com.dany.coins.fragments.MainContentFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private var gson = Gson()
+    private lateinit var mainContentFragment: MainContentFragment
 
 
 
@@ -73,6 +75,8 @@ class MainActivity : AppCompatActivity() {
 
         if (fragment_content != null) {
             twoPane = true
+            mainContentFragment =MainContentFragment.newInstance(Coin())
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_content, mainContentFragment).commit()
         }
 
 
@@ -83,6 +87,7 @@ class MainActivity : AppCompatActivity() {
             viewManager = LinearLayoutManager(this)
         } else {
             viewManager = GridLayoutManager(this, 2)
+
         }
 
         viewAdapter = CoinAdapter(coin, { coinItem: Coin -> coinItemClicked(coinItem) })
@@ -98,16 +103,22 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun coinItemClicked(item: Coin) {
-        val extras = Bundle()
-        extras.putString(AppConstants.TEXT_KEY_NAME, item.name)
-        extras.putString(AppConstants.TEXT_KEY_IMG, item.img)
-        extras.putString(AppConstants.TEXT_KEY_IS_AVAILABLE, item.isAvailable.toString())
-        extras.putString(AppConstants.TEXT_KEY_COUNTRY, item.country)
-        extras.putString(AppConstants.TEXT_KEY_REVIEW, item.review)
-        extras.putString(AppConstants.TEXT_KEY_YEAR, item.year.toString())
-        extras.putString(AppConstants.TEXT_KEY_VALUE_US, item.value_us.toString())
-        extras.putString(AppConstants.TEXT_KEY_VALUE, item.value.toString())
-        startActivity(Intent(this, CoinViewer::class.java).putExtras(extras))
+        if(twoPane){
+            mainContentFragment =MainContentFragment.newInstance(item)
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_content, mainContentFragment).commit()
+        }
+        else {
+            val extras = Bundle()
+            extras.putString(AppConstants.TEXT_KEY_NAME, item.name)
+            extras.putString(AppConstants.TEXT_KEY_IMG, item.img)
+            extras.putString(AppConstants.TEXT_KEY_IS_AVAILABLE, item.isAvailable.toString())
+            extras.putString(AppConstants.TEXT_KEY_COUNTRY, item.country)
+            extras.putString(AppConstants.TEXT_KEY_REVIEW, item.review)
+            extras.putString(AppConstants.TEXT_KEY_YEAR, item.year.toString())
+            extras.putString(AppConstants.TEXT_KEY_VALUE_US, item.value_us.toString())
+            extras.putString(AppConstants.TEXT_KEY_VALUE, item.value.toString())
+            startActivity(Intent(this, CoinViewer::class.java).putExtras(extras))
+        }
     }
 
     private inner class FetchCoinTask : AsyncTask<Void, Void, String>() {
