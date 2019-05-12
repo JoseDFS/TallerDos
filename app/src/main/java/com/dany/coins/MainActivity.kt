@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var list_coin: MutableList<Coin>
 
     private var gson = Gson()
     private lateinit var mainContentFragment: MainContentFragment
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         if (fragment_content != null) {
             twoPane = true
-            mainContentFragment =MainContentFragment.newInstance(Coin())
+            mainContentFragment = MainContentFragment.newInstance(Coin())
             supportFragmentManager.beginTransaction().replace(R.id.fragment_content, mainContentFragment).commit()
         }
 
@@ -101,13 +100,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     private fun coinItemClicked(item: Coin) {
-        if(twoPane){
-            mainContentFragment =MainContentFragment.newInstance(item)
+        if (twoPane) {
+            mainContentFragment = MainContentFragment.newInstance(item)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_content, mainContentFragment).commit()
-        }
-        else {
+        } else {
             val extras = Bundle()
             extras.putString(AppConstants.TEXT_KEY_NAME, item.name)
             extras.putString(AppConstants.TEXT_KEY_IMG, item.img)
@@ -128,17 +125,9 @@ class MainActivity : AppCompatActivity() {
             val coinAPI = NetworkUtils.buildUrl("coins")!!
 
             return try {
-
-                return if(crud?.getCoins().isNullOrEmpty()){
-                    NetworkUtils.getResponseFromHttpUrl(coinAPI)
-                } else{
-                    crud?.getCoins().toString()
-                }
-
                 if (crud?.getCoins().isNullOrEmpty()) {
                     NetworkUtils.getResponseFromHttpUrl(coinAPI)
-                }
-                else{
+                } else {
                     crud?.getCoins().toString()
                 }
 
@@ -154,18 +143,28 @@ class MainActivity : AppCompatActivity() {
             //val db = dbHelper.readableDatabase
 
 
-//            val root = JSONArray(coinInfo)
+            val root = JSONArray(coinInfo)
 
-  //          Log.d("Hola", root.toString())
-/*
-            if(){
-                init_recycler(crud.getCoins())
-            } else{
+            Log.d("Hola", root.toString())
+
+            if (crud?.getCoins()?.isNotEmpty()!!) {
+                initRecycler(crud?.getCoins()!!)
+            } else {
                 for (i in 0..(root.length() - 1)) {
+                    val res = JSONObject(root[i].toString())
 
-                initRecycler(list_coin)
+                    crud!!.newCoin(Coin(res.getString("name"),
+                        res.getString("country"),
+                        res.getDouble("value"),
+                        res.getDouble("value_us"),
+                        res.getInt("year"),
+                        res.getString("review"),
+                        res.getBoolean("isAvailable"),
+                        res.getString("img")   ))
+
+                }
+                initRecycler(crud?.getCoins()!!)
             }
-            */
         }
     }
 }
