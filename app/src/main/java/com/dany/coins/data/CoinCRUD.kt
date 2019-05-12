@@ -34,8 +34,8 @@ class CoinCRUD(context: Context) {
         db.close()
     }
 
-    fun getCoins() : ArrayList<Coin>{
-        val items: ArrayList<Coin> = ArrayList()
+    fun getCoins() : MutableList<Coin>{
+        val items: MutableList<Coin> = mutableListOf()
 
         val db :SQLiteDatabase = helper?.readableDatabase!!
 
