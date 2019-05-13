@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
+zzz
     <!-- TODO(3) Permite mostrar un menú lateral con una cabecera y opciones -->
     <!-- TODO(3.1) La cabecera se define desde un archivo XML con el atributo app:hearderLayout -->
     <!-- TODO(3.2) El menú se define desde XML con un archivo de recurso tipo menu con app:menu -->
