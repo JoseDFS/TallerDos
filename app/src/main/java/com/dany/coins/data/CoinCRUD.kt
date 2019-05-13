@@ -9,10 +9,10 @@ import com.dany.coins.Models.Coin
 class CoinCRUD(context: Context) {
 
     private var helper: Database? = null
-
     init {
         helper = Database(context)
     }
+
 
     fun newCoin(item:Coin){
         val db : SQLiteDatabase = helper?.writableDatabase!!

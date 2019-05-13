@@ -10,10 +10,12 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.widget.Toast
 import com.dany.coins.Models.Coin
 import com.dany.coins.Utils.AppConstants
 import com.dany.coins.Utils.NetworkUtils
 import com.dany.coins.data.CoinCRUD
+import com.dany.coins.data.Database
 import com.dany.coins.fragments.MainContentFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -26,11 +28,14 @@ class MainActivity : AppCompatActivity() {
 
     var twoPane = false
 
+
     var crud: CoinCRUD? = CoinCRUD(this)
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var mainContentFragment: MainContentFragment
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +65,12 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_content, mainContentFragment).commit()
         }
 
+        fab.setOnClickListener {
+            clickUpdate()
+            }
+        }
 
-    }
+
 
     fun initRecycler(coin: MutableList<Coin>) {
         if (twoPane) {
@@ -82,6 +91,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
     private fun coinItemClicked(item: Coin) {
         if (twoPane) {
             mainContentFragment = MainContentFragment.newInstance(item)
@@ -98,7 +109,15 @@ class MainActivity : AppCompatActivity() {
             extras.putString(AppConstants.TEXT_KEY_VALUE, item.value.toString())
             startActivity(Intent(this, CoinViewer::class.java).putExtras(extras))
         }
+
+
     }
+
+    private fun clickUpdate(){
+        this.deleteDatabase("miprimerabase.db")
+        FetchCoinTask().execute()
+    }
+
 
     private inner class FetchCoinTask : AsyncTask<Void, Void, String>() {
 
@@ -152,5 +171,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+
     }
 }
