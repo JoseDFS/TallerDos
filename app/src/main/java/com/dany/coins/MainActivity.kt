@@ -3,6 +3,7 @@ package com.dany.coins
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import com.dany.coins.Models.Coin
 import com.dany.coins.Utils.AppConstants
@@ -24,7 +26,17 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        val id = p0.itemId
+        when(id){
+            R.id.nav_1 -> {
+
+            }
+        }
+    }
 
     var twoPane = false
 
@@ -43,6 +55,9 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         FetchCoinTask().execute()
+
+
+        nav_view.setNavigationItemSelectedListener (this)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
