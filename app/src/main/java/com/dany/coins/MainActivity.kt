@@ -3,6 +3,7 @@ package com.dany.coins
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -10,10 +11,13 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
 import com.dany.coins.Models.Coin
 import com.dany.coins.Utils.AppConstants
 import com.dany.coins.Utils.NetworkUtils
 import com.dany.coins.data.CoinCRUD
+import com.dany.coins.data.Database
 import com.dany.coins.fragments.MainContentFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -22,15 +26,41 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        val id = p0.itemId
+        when(id){
+            R.id.nav_1 -> {
+                initRecycler(crud?.getCoinsByCountry("United States")!!)
+                return true
+            }
+            R.id.nav_2 -> {
+                initRecycler(crud?.getCoinsByCountry("Guatemala")!!)
+                return true
+            }
+            R.id.nav_3 ->{
+                initRecycler(crud?.getCoins()!!)
+                return true
+            }
+            else -> {
+                return false
+            }
+        }
+
+    }
 
     var twoPane = false
+
 
     var crud: CoinCRUD? = CoinCRUD(this)
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var mainContentFragment: MainContentFragment
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +69,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         FetchCoinTask().execute()
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
 
-        }
+        nav_view.setNavigationItemSelectedListener (this)
+
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -60,8 +88,14 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_content, mainContentFragment).commit()
         }
 
+        fab.setOnClickListener {
+            clickUpdate()
+            }
 
-    }
+
+        }
+
+
 
     fun initRecycler(coin: MutableList<Coin>) {
         if (twoPane) {
@@ -82,6 +116,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
     private fun coinItemClicked(item: Coin) {
         if (twoPane) {
             mainContentFragment = MainContentFragment.newInstance(item)
@@ -98,7 +134,16 @@ class MainActivity : AppCompatActivity() {
             extras.putString(AppConstants.TEXT_KEY_VALUE, item.value.toString())
             startActivity(Intent(this, CoinViewer::class.java).putExtras(extras))
         }
+
+
     }
+
+    private fun clickUpdate(){
+        this.deleteDatabase("miprimerabase.db")
+        FetchCoinTask().execute()
+    }
+
+
 
     private inner class FetchCoinTask : AsyncTask<Void, Void, String>() {
 
@@ -152,5 +197,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+
     }
+
 }

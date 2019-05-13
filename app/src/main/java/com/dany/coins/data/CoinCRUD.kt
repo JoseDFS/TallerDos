@@ -9,10 +9,10 @@ import com.dany.coins.Models.Coin
 class CoinCRUD(context: Context) {
 
     private var helper: Database? = null
-
     init {
         helper = Database(context)
     }
+
 
     fun newCoin(item:Coin){
         val db : SQLiteDatabase = helper?.writableDatabase!!
@@ -67,6 +67,43 @@ class CoinCRUD(context: Context) {
         db.close()
         return items
     }
+
+    fun getCoinsByCountry(name:String) : MutableList<Coin>{
+        val items: MutableList<Coin> = mutableListOf()
+
+        val db :SQLiteDatabase = helper?.readableDatabase!!
+
+        val columns = arrayOf(DatabaseContract.CoinEntry.COLUMN_NAME,
+            DatabaseContract.CoinEntry.COLUMN_COUNTRY,
+            DatabaseContract.CoinEntry.COLUMN_VALUE,
+            DatabaseContract.CoinEntry.COLUMN_VALUE_US,
+            DatabaseContract.CoinEntry.COLUMN_YEAR,
+            DatabaseContract.CoinEntry.COLUMN_REVIEW,
+            DatabaseContract.CoinEntry.COLUMN_ISAVAILABLE,
+            DatabaseContract.CoinEntry.COLUMN_IMG)
+
+        val cursor: Cursor = db.query(DatabaseContract.CoinEntry.TABLE_NAME,
+            columns,null,null,null,null,null)
+
+        //Haciendo recorrido
+        while (cursor.moveToNext()){
+            if(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_COUNTRY))==name){items.add(Coin(
+                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_NAME)),
+                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_COUNTRY)),
+                cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_VALUE)),
+                cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_VALUE_US)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_YEAR)),
+                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_REVIEW)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_ISAVAILABLE)) > 0,
+                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.CoinEntry.COLUMN_IMG))
+            ))
+        }}
+
+        db.close()
+        return items
+    }
+
+
 
     fun getCoinByName(name: String) : Coin{
         var item: Coin? = null
